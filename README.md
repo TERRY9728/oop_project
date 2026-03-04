@@ -6,8 +6,9 @@ This project uses main OOP concepts: **Class and Objects, Encapsulation, Inherit
 ### 1. Class and Objects ###
 - Reader class: Manages infomation of reader and borrowing/returning books.
 - Book class: Manages different book names and the situation of stock.
-- Search class: The base of search.
-- 
+- SearchStrategy class: The base of searchstrategy.
+- SearchByTitle / SearchByAuthor class: How to search.
+- LibraryManager class: System management.
 
 ### 2. Encapsulation ###
 
