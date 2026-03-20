@@ -1,11 +1,15 @@
 class SearchStrategy:
-    def search(self, books, keyword):
+    def search(self):
         pass
 
 class SearchByTitle(SearchStrategy):
-    def search(self, books, keyword):
-        return [book for book in books if keyword in book.get_title()]
+    def search(self):
+        pass
 
 class SearchByAuthor(SearchStrategy):
-    def search(self, books, keyword):
-        return [book for book in books if keyword in book.author]
+    def search(self):
+        pass
+
+class SearchByGenre(SearchStrategy):
+    def search(self):
+        pass
