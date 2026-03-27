@@ -86,19 +86,17 @@ class Min_Heap(Heap):
     def __init__(self, data_array):
         super().__init__(data_array)
 
-    def heapify(self, i):
+    def heapify(self, i, n):
         l = self.left_child(i)
         r = self.right_child(i)
         smallest = i
-        if l < self.size and self.data[l] < self.data[i]:
+        if l <= n and self.data[l] < self.data[i]:
             smallest = l
-        else:
-            smallest = i
-        if r < self.size and self.data[r] < self.data[smallest]:
+        if r <= n and self.data[r] < self.data[smallest]:
             smallest = r
         if smallest != i:
             self.data[i], self.data[smallest] = self.data[smallest], self.data[i]
-            self.heapify(smallest)
+            self.heapify(smallest, n)
         return
 
 if __name__ == "__main__":
@@ -111,6 +109,12 @@ if __name__ == "__main__":
     maxheap = Max_Heap(data_array)
     print(maxheap.data)
     tprint.print_heap(maxheap)
+    print("-" * 50)
+
+    print("min heap:")
+    maxheap = Min_Heap(data_array)
+    print(minheap.data)
+    tprint.print_heap(minheap)
     print("-" * 50)
 
     print("pop last item:")
