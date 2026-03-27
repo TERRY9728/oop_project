@@ -106,13 +106,13 @@ if __name__ == "__main__":
     print("-" * 50)
 
     print("max heap:")
-    maxheap = Max_Heap(data_array)
+    maxheap = Max_Heap(data_array.copy)
     print(maxheap.data)
     tprint.print_heap(maxheap)
     print("-" * 50)
 
     print("min heap:")
-    maxheap = Min_Heap(data_array)
+    maxheap = Min_Heap(data_array.copy)
     print(minheap.data)
     tprint.print_heap(minheap)
     print("-" * 50)
