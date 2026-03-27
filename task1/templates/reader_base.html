@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reader Businesses</title>
+</head>
+<body>
+    <a href="/"><button>home page</button></a>
+    <br>
+    <label>Reader: %s</label>
+    <br>
+    <label>Borrowed Books: %s</label>
+    <br>
+    <form action="/search_by_title" method="POST">
+        <label for="keyword">Search by title: </label>
+        <input type="text" name="keyword"></input>
+        <button type="submit">submit</button></a>
+    </form>
+    <form action="/book/borrow" method="POST">
+        <label for="book_id">Book ID: </label>
+        <input type="text" name="book_id"></input>
+        <button type="submit">borrow</button></a>
+    </form>
+    <form action="/book/return" method="POST">
+        <label for="book_id">Book ID: </label>
+        <input type="text" name="book_id"></input>
+        <button type="submit">return</button></a>
+    </form>
+</body>
+</html>

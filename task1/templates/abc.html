@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book management · welcome</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Roboto, system-ui, -apple-system, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(145deg, #f0f3fa 0%, #e6eefa 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+        }
+
+        .welcome-card {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border-radius: 3rem 3rem 2.5rem 2.5rem;
+            box-shadow: 0 25px 45px -10px rgba(0, 20, 40, 0.3),
+                        0 0 0 1px rgba(255, 255, 255, 0.6) inset;
+            width: 100%;
+            max-width: 680px;
+            padding: 2.8rem 2.2rem 2.8rem 2.2rem;
+            transition: all 0.2s ease;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            margin-bottom: 2rem;
+            padding-left: 0.5rem;
+        }
+
+        .brand-icon {
+            background: #1e2f4f;
+            color: white;
+            width: 48px;
+            height: 48px;
+            border-radius: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 26px;
+            box-shadow: 0 10px 15px -5px #1e2f4f60;
+        }
+
+        .brand h1 {
+            font-size: 2.1rem;
+            font-weight: 600;
+            letter-spacing: -0.5px;
+            color: #17212d;
+        }
+
+        .subhead {
+            font-size: 1.1rem;
+            color: #2b3b50;
+            margin-bottom: 2.5rem;
+            padding: 0 0.5rem;
+            border-left: 5px solid #4f7eb3;
+            padding-left: 1.2rem;
+            background: linear-gradient(to right, transparent, #ffffff70);
+            border-radius: 0 2rem 2rem 0;
+            line-height: 1.5;
+            font-weight: 350;
+        }
+
+        .role-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.8rem;
+            justify-content: center;
+            margin: 2.2rem 0 2rem 0;
+        }
+
+        .role-card {
+            flex: 1 1 200px;
+            min-width: 220px;
+            background: white;
+            border-radius: 2.5rem 2.5rem 2rem 2rem;
+            padding: 2.2rem 1.2rem 1.8rem 1.2rem;
+            text-align: center;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.25s, background 0.2s;
+            box-shadow: 0 12px 20px -10px #1e2f4f40,
+                        0 0 0 1px #ffffffcc inset,
+                        0 0 0 1px #cdd9ed;
+            border: none;
+            background: #fbfdff;
+        }
+
+        .role-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 25px 30px -12px #1e3b5b80, 0 0 0 1px #b7d0f0 inset;
+            background: #ffffff;
+        }
+
+        .role-card.reader:active {
+            background: #ecf3fe;
+        }
+        .role-card.librarian:active {
+            background: #f0f1e9;
+        }
+
+        .icon-circle {
+            font-size: 3.8rem;
+            line-height: 1;
+            margin-bottom: 1rem;
+        }
+
+        .role-card h2 {
+            font-size: 2rem;
+            font-weight: 550;
+            letter-spacing: -0.5px;
+            color: #101c2c;
+            margin-bottom: 0.35rem;
+        }
+
+        .role-badge {
+            display: inline-block;
+            background: #dde5f0;
+            color: #1f3a5f;
+            font-weight: 500;
+            font-size: 0.9rem;
+            padding: 0.3rem 1.2rem;
+            border-radius: 40px;
+            margin: 0.8rem 0 0.2rem;
+            backdrop-filter: blur(4px);
+        }
+
+        .role-card.reader .role-badge {
+            background: #d4e0f0;
+            color: #113256;
+        }
+
+        .role-card.librarian .role-badge {
+            background: #e8e2cf;
+            color: #3b4c2c;
+        }
+
+        /* hidden radio – functional selection */
+        .role-selector {
+            display: none;
+        }
+
+        .role-card.selected {
+            box-shadow: 0 0 0 3px #6c8fc9, 0 18px 30px -12px #1e3b5f;
+            background: #ffffff;
+            transform: scale(1.02);
+        }
+
+        .action-area {
+            margin-top: 2.2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.2rem;
+        }
+
+        .continue-btn {
+            background: #1d2b40;
+            border: none;
+            color: white;
+            font-size: 1.35rem;
+            font-weight: 550;
+            padding: 1rem 2.5rem;
+            border-radius: 60px;
+            width: fit-content;
+            min-width: 240px;
+            letter-spacing: 0.3px;
+            box-shadow: 0 8px 18px #0f1a2e70, 0 2px 0 #95b5e7 inset, 0 -2px 0 #0f1a2e inset;
+            cursor: pointer;
+            transition: 0.15s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.8rem;
+        }
+
+        .continue-btn:disabled {
+            opacity: 0.4;
+            box-shadow: none;
+            transform: scale(0.98);
+            pointer-events: none;
+            filter: grayscale(0.4);
+        }
+
+        .continue-btn:not(:disabled):hover {
+            background: #243856;
+            box-shadow: 0 12px 22px #0f1a2e90, 0 1px 0 #b5d2ff inset;
+            transform: scale(1.02);
+        }
+
+        .continue-btn:not(:disabled):active {
+            transform: scale(0.98);
+            box-shadow: 0 4px 12px #0f1a2e;
+        }
+
+        .continue-btn span {
+            font-size: 1.7rem;
+            line-height: 1;
+        }
+
+        .footnote {
+            color: #4b5b70;
+            font-size: 0.95rem;
+            border-top: 1px dashed #a2bbd9;
+            padding-top: 1.8rem;
+            margin-top: 0.8rem;
+            text-align: center;
+        }
+
+        .footnote a {
+            color: #1f4a7a;
+            text-decoration: none;
+            font-weight: 500;
+            border-bottom: 1px dotted;
+        }
+    </style>
+</head>
+<body>
+    <div class="welcome-card">
+        <div class="brand">
+            <div class="brand-icon">📚</div>
+            <h1>book flow</h1>
+        </div>
+        <div class="subhead">
+            welcome to the book management system · choose your role to continue
+        </div>
+
+        <!-- Role selection cards (hidden radio + visual) -->
+        <form id="loginForm" action="#" method="get">
+            <!-- fake action, just to show selection behaviour -->
+            <div class="role-grid">
+                <!-- reader option -->
+                <label class="role-card reader" for="roleReader" id="readerLabel">
+                    <input type="radio" name="loginRole" value="reader" id="roleReader" class="role-selector" required>
+                    <div class="icon-circle">👤</div>
+                    <h2>reader</h2>
+                    <div class="role-badge">borrow & discover</div>
+                    <div style="font-size: 0.9rem; margin-top: 0.9rem; color: #405d82;">search books, reviews, history</div>
+                </label>
+
+                <!-- librarian option -->
+                <label class="role-card librarian" for="roleLibrarian" id="librarianLabel">
+                    <input type="radio" name="loginRole" value="librarian" id="roleLibrarian" class="role-selector">
+                    <div class="icon-circle">👩‍💼</div>
+                    <h2>librarian</h2>
+                    <div class="role-badge">manage inventory</div>
+                    <div style="font-size: 0.9rem; margin-top: 0.9rem; color: #5f6a4b;">add books, members, returns</div>
+                </label>
+            </div>
+
+            <!-- dynamic selection feedback + continue button -->
+            <div class="action-area">
+                <button type="button" class="continue-btn" id="continueBtn" disabled>
+                    <span>🔓</span> continue as <span id="selectedRoleText">...</span>
+                </button>
+                <div style="font-size:0.95rem; color:#39506b;">
+                    <span id="hintMessage">select reader or librarian above</span>
+                </div>
+            </div>
+        </form>
+
+        <div class="footnote">
+            📖  demo interface · <a href="#">about the library</a>  ·  <a href="#">help</a>
+        </div>
+    </div>
+
+    <!-- simple vanilla JS to handle selection & enable button -->
+    <script>
+        (function() {
+            const readerRadio = document.getElementById('roleReader');
+            const librarianRadio = document.getElementById('roleLibrarian');
+            const readerLabel = document.getElementById('readerLabel');
+            const librarianLabel = document.getElementById('librarianLabel');
+            const continueBtn = document.getElementById('continueBtn');
+            const selectedRoleSpan = document.getElementById('selectedRoleText');
+            const hintSpan = document.getElementById('hintMessage');
+
+            // helper to remove selected class from both labels
+            function clearSelectedClass() {
+                readerLabel.classList.remove('selected');
+                librarianLabel.classList.remove('selected');
+            }
+
+            // update UI based on which radio is checked
+            function updateSelection() {
+                if (readerRadio.checked) {
+                    clearSelectedClass();
+                    readerLabel.classList.add('selected');
+                    selectedRoleSpan.textContent = 'reader';
+                    hintSpan.textContent = '✔ reader access · personal dashboard';
+                    continueBtn.disabled = false;
+                } 
+                else if (librarianRadio.checked) {
+                    clearSelectedClass();
+                    librarianLabel.classList.add('selected');
+                    selectedRoleSpan.textContent = 'librarian';
+                    hintSpan.textContent = '✔ librarian privileges · management tools';
+                    continueBtn.disabled = false;
+                } 
+                else {
+                    // nothing selected
+                    clearSelectedClass();
+                    selectedRoleSpan.textContent = '...';
+                    hintSpan.textContent = 'select reader or librarian above';
+                    continueBtn.disabled = true;
+                }
+            }
+
+            // event listeners for changes on radios
+            readerRadio.addEventListener('change', updateSelection);
+            librarianRadio.addEventListener('change', updateSelection);
+
+            // also make the whole label clickable — but the 'for' attribute already does,
+            // however if user clicks slightly outside the radio, the label's for triggers it.
+            // Additional safety: manually trigger when label content is clicked (but native behaviour works fine)
+            // we will just ensure that after click the update runs (already via change event).
+            // Extra: manually trigger update if label is clicked but radio state unchanged? not needed.
+
+            // initialize: no one selected, button disabled (but in case of page autofill, double-check)
+            window.addEventListener('load', function() {
+                // ensure radios are unchecked on fresh load (some browsers may preserve state)
+                // but we want fresh start: explicitly uncheck
+                readerRadio.checked = false;
+                librarianRadio.checked = false;
+                updateSelection();  // sets classes and disabled
+            });
+
+            // optional: simulate login action for demo
+            continueBtn.addEventListener('click', function(e) {
+                e.preventDefault();  // avoid any form get/post
+                if (!readerRadio.checked && !librarianRadio.checked) {
+                    alert('Please select a role first.');
+                    return;
+                }
+                const role = readerRadio.checked ? 'Reader' : 'Librarian';
+                // in a real system you would redirect or submit form. Here: friendly alert.
+                alert(`✨ Demo: continue as ${role} (this would open ${role} dashboard)`);
+                // optionally you could programmatically submit the form, but we keep it simple.
+                // you can uncomment next line to submit form (but action="#", just reloads)
+                // document.getElementById('loginForm').submit();
+            });
+
+            // a tiny extra: make the role-card respond to keyboard and click (already fine)
+            // highlight on click via radio change
+            // Also remove selected if user clicks the other one, etc.
+        })();
+    </script>
+
+    <!-- subtle extra: display hint that it's a front‑page prototype -->
+    <div style="position: fixed; bottom: 10px; right: 15px; opacity:0.5; font-size:0.8rem; color:#2d4b6e;">
+        book management · entry
+    </div>
+</body>
+</html>
