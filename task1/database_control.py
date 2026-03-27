@@ -1,5 +1,5 @@
 import sqlite3
-import os
+#  import os
 
 class Database:
     def __init__(self, file_name):
@@ -10,8 +10,11 @@ class Database:
             "book_exist": "SELECT EXISTS (SELECT 1 FROM books WHERE id_num = %d);",
             "fetch_book_by_id": "SELECT * FROM books WHERE id_num = %d;",
             "update_book": "UPDATE books SET title = \"%s\", author = \"%s\", stock = %d WHERE id_num = %d;",
+            "book_id_title": "SELECT id_num, title FROM books;",
             "insert_book": "INSERT INTO books(title, author, stock) VALUES(\"%s\", \"%s\", %d);",
-            "del_book": "DELETE FROM books WHERE id_num = %d;"
+            "del_book": "DELETE FROM books WHERE id_num = %d;",
+            "librarian_exist": "SELECT EXISTS (SELECT 1 FROM librarians WHERE id_num = % d);",
+            "fetch_librarian": "SELECT * FROM librarians WHERE id_num = %d;"
         }
         self.file_name = file_name
         self.cursor = self.connect()
@@ -59,6 +62,11 @@ class Database:
         self.sqlite_conn.commit()
         return 1
 
+    def book_id_title(self):
+        result = self.cursor.execute(self.statements["book_id_title"])
+        result = result.fetchall()
+        return result
+
     def add_book(self, title, author, stock):
         self.cursor.execute(self.statements["insert_book"] % (title, author, stock))
         self.sqlite_conn.commit()
@@ -68,6 +76,16 @@ class Database:
         self.cursor.execute(self.statements["del_book"] % book_id)
         self.sqlite_conn.commit()
         return 1
+
+    def is_librarian_exist(self, librarian_id):
+        result = self.cursor.execute(self.statements["librarian_exist"] % librarian_id)
+        result = result.fetchone()
+        return result[0]
+
+    def get_librarian(self, librarian_id):
+        result = self.cursor.execute(self.statements["fetch_librarian"] % librarian_id)
+        result = result.fetchone()
+        return result
 
 if __name__ == "__main__":
     database_conn = Database("library.db")
