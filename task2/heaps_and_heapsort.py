@@ -112,7 +112,7 @@ if __name__ == "__main__":
     print("-" * 50)
 
     print("min heap:")
-    maxheap = Min_Heap(data_array.copy（）)
+    minheap = Min_Heap(data_array.copy（）)
     print(minheap.data)
     tprint.print_heap(minheap)
     print("-" * 50)
