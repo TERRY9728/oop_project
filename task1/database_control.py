@@ -1,8 +1,9 @@
 import sqlite3
-#  import os
 
+# connect to the database with file name
 class Database:
     def __init__(self, file_name):
+        # sql queries
         self.statements = {
             "reader_exist": "SELECT EXISTS (SELECT 1 FROM users WHERE id_num = %d);",
             "fetch_reader": "SELECT * FROM users WHERE id_num = %d;",
@@ -21,22 +22,16 @@ class Database:
 
     def connect(self):
         file_path = self.file_name
-#          if os.name == "nt":
-#              file_path = "data\\" + self.file_name
-#          else:
-#              file_path = "data/" + self.file_name
-
         with sqlite3.connect(file_path) as self.sqlite_conn:
             cursor = self.sqlite_conn.cursor()
-
         return cursor
 
-    # is_reader_exist(id_num) -> int
     def is_reader_exist(self, reader_id):
         result = self.cursor.execute(self.statements["reader_exist"] % reader_id)
         result = result.fetchone()
         return result[0]
 
+    # return reader's info
     def get_reader(self, reader_id):
         result = self.cursor.execute(self.statements["fetch_reader"] % reader_id)
         result = result.fetchone()
@@ -62,6 +57,7 @@ class Database:
         self.sqlite_conn.commit()
         return 1
 
+    # return book's id and title
     def book_id_title(self):
         result = self.cursor.execute(self.statements["book_id_title"])
         result = result.fetchall()
