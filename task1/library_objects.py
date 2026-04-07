@@ -1,14 +1,24 @@
+from abc import ABC, abstractmethod
+
 # parent class for Reader and Librarian
 class User:
     def __init__(self, id_num, name):
         self.id_num = id_num
         self.name = name
 
+    @abstractmethod
+    def is_exist(self, id_num):
+        pass
+
+    @abstractmethod
+    def login(self, id_num):
+        pass
+
 class Reader(User):
     def __init__(self, database_conn, id_num=None, name=None, borrowed_book=[]):
         super().__init__(id_num, name)
         self.borrowed_book = borrowed_book
-        self.database_conn = database_conn
+        self.__database_conn = database_conn
 
     # reset attributes, for outer use
     def initialise(self):
@@ -18,7 +28,7 @@ class Reader(User):
     # borrow book and update database
     def borrow_book(self, book_id):
         self.borrowed_book.append(book_id)
-        self.update()
+        self.__update()
         return 1
 
     # return book and update database
@@ -28,20 +38,20 @@ class Reader(User):
             if book_id == self.borrowed_book[i]:
                 returned_book = self.borrowed_book.pop(i)
                 # update database
-                self.update()
+                self.__update()
                 return 1
         return 0
 
     # check if reader exist
     def is_exist(self, id_num):
-        return self.database_conn.is_reader_exist(id_num)
+        return self.__database_conn.is_reader_exist(id_num)
 
     # reader login function
     def login(self, id_num):
         # check if reader record in database
         if self.is_exist(id_num):
             # get reader info from database
-            data = self.database_conn.get_reader(id_num)
+            data = self.__database_conn.get_reader(id_num)
             # assign attributes
             self.id_num, self.name, self.borrowed_book = data
             self.borrowed_book = self.borrowed_book.split(",")
@@ -53,10 +63,10 @@ class Reader(User):
             return 0
 
     # update database
-    def update(self):
+    def __update(self):
         borrowed_book = [str(item) for item in self.borrowed_book]
         borrowed_book = ",".join(borrowed_book)
-        self.database_conn.update_reader(self.id_num, self.name, borrowed_book)
+        self.__database_conn.update_reader(self.id_num, self.name, borrowed_book)
         return 1
 
 class Book:
@@ -65,7 +75,7 @@ class Book:
         self.title = title
         self.author = author
         self.stock = max(0, stock)
-        self.database_conn = database_conn
+        self.__database_conn = database_conn
 
     # reset attribute
     def initialise(self):
@@ -75,14 +85,14 @@ class Book:
 
     # load book info from database by id
     def load_by_id(self, id_num):
-        data = self.database_conn.get_book_by_id(id_num)
+        data = self.__database_conn.get_book_by_id(id_num)
         self.id_num, self.title, self.author, self.stock = data
         return 1
     
     # load book info from database by title
     def load_by_title(self, substr):
         # retrieve all id and title
-        book_list = self.database_conn.book_id_title()
+        book_list = self.__database_conn.book_id_title()
         # compare user input and data from database
         substr = substr.lower()
         for book in book_list:
@@ -95,23 +105,23 @@ class Book:
         self.initialise()
         return 0
 
-    def update(self):
-        self.database_conn.update_book(self.id_num, self.title, self.author, self.stock)
+    def __update(self):
+        self.__database_conn.update_book(self.id_num, self.title, self.author, self.stock)
         return 1
 
     # append book directly to database
     def add_book(self):
-        self.database_conn.add_book(self.title, self.author, self.stock)
+        self.__database_conn.add_book(self.title, self.author, self.stock)
         return 1
 
     # del from database
     def del_book(self):
-        self.database_conn.del_book(self.id_num)
+        self.__database_conn.del_book(self.id_num)
         return 1
 
     # check book if exist
     def is_exist(self, id_num):
-        is_exist = self.database_conn.is_book_exist(id_num)
+        is_exist = self.__database_conn.is_book_exist(id_num)
         if is_exist:
             self.load_by_id(id_num)
         else:
@@ -121,19 +131,19 @@ class Book:
     # reduce stock and update database
     def reduce_stock(self):
         self.stock = max(0, self.stock - 1)
-        self.update()
+        self.__update()
         return 1
 
     # increase stock and update database
     def add_stock(self):
         self.stock += 1
-        self.update()
+        self.__update()
         return 1
 
 class Librarian(User):
     def __init__(self, database_conn, id_num=None, name=None):
         super().__init__(id_num, name)
-        self.database_conn = database_conn
+        self.__database_conn = database_conn
 
     def initialise(self):
         self.id_num = None
@@ -152,13 +162,13 @@ class Librarian(User):
 
     # check if librarian exist
     def is_exist(self, librarian_id):
-        return self.database_conn.is_librarian_exist(librarian_id)
+        return self.__database_conn.is_librarian_exist(librarian_id)
 
     # librarian login function
     def login(self, librarian_id):
         # if exist, then login
         if self.is_exist(librarian_id):
-            data = self.database_conn.get_librarian(librarian_id)
+            data = self.__database_conn.get_librarian(librarian_id)
             self.id_num, self.name = data
             return 1
         else:
