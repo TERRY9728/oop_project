@@ -60,9 +60,9 @@ This is a library management system based on Object-Oriented Programming and min
 ## Task2: Self-study on a Data Structure and Algorithm - Heap and Heapsort
 
 ### 1. Overview
-    **Heaps** - tree-based data structures. 
+    Heaps - tree-based data structures. 
 
-    **Heapsort** - a comparison-based sorting algorithm using a heap.
+    Heapsort - a comparison-based sorting algorithm using a heap.
 
 Max-heap: every parent node is greater than or equal to its children;<br>
 <img src="./images/max_heap.png" alt="max_heap" width="300"/>
