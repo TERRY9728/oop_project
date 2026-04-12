@@ -21,6 +21,10 @@ This is a library management system based on Object-Oriented Programming and min
 #### 4. Polymorphism
 - `Reader` and `Librarian`: the methods in two classes `is_exist()` and `login()` perform differently.
 
+#### 5. Abstraction
+- `User`: absrtact as `is_exit()` and `login()`, hides details and providing a simple interface
+- `Other new class`: implement `is_exit()` and `login()`
+
 ### Classes and Function
 - Reader: Manage ID and name, borrow/return methods.
 - Book: Manage book title, author and stock.
