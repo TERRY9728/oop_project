@@ -2,33 +2,35 @@
 
 ## Task1: Library Management System - Simple Web App
 
-This is a library management system based on Object-Oriented Programming and minimal full-stack development. Functions including books borrowing and returning, searching, and adding and deleting. 
+This is a library management system based on Object-Oriented Programming and minimal full-stack development. For the readers' functions, including book borrowing and returning, searching, and adding and deleting. For the library manager, in addition to the basic borrowing and search functions, they also have the permission to manage the books. 
 
 ### The main conception of OOP:
 #### 1. Classes and Objects
 - `User`: parent of Reader and Librarian.
-- `Reader`: borrowing/returning books and retrieving reader infomation.
+- `Reader`: borrowing/returning books and retrieving reader information.
 - `Book`: title and stock, as well as searching strategies.
-- `Librarian`: adding/deleting books.
+- `Librarian`: adding/deleting books。
 
 #### 2. Encapsulation
 - Privite attribute and method: `__database_conn` and `__update()`.
 - Public methods: `load_by_title()`, `reduce_stock()`, `login()`, etc..
+- `main.py` and the outside can not change data, but inside needs to verify, search and change the information.
 
 #### 3. Inheritance
-- `Reader` and `Librarian` inherit `User`.
+- `Reader` and `Librarian` inherit `User`. And can also add the new method for itself.
+- Improving code reusability and reducing redundancy
 
 #### 4. Polymorphism
-- `Reader` and `Librarian`: the methods in two classes `is_exist()` and `login()` perform differently.
+- `Reader` and `Librarian`: the methods in the two classes `is_exist()` and `login()` perform differently.
 
 #### 5. Abstraction
 - `User`: absrtact as `is_exit()` and `login()`, hides details and providing a simple interface
 - `Other new class`: implement `is_exit()` and `login()`
 
-### Classes and Function
+### Classes and Functions
 - Reader: Manage ID and name, borrow/return methods.
 - Book: Manage book title, author and stock.
-- LibraryManager: Provides operations and manages bookes.
+- LibraryManager: Provides operations and manages books.
 
 ---
 
