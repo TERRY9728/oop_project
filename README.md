@@ -101,4 +101,4 @@ Min-heap, every parent node is smaller than or equal to its children.<br>
 - **Installation**: Install dependencies for visualization:
   `pip install -r requirements.txt`
 - **Usage**: Run the main script to see the heap operations and visualization:
-  `python my_heap.py `
+  `python heaps_and_heapsort.py `
