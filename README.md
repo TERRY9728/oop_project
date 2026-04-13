@@ -92,7 +92,7 @@ Min-heap, every parent node is smaller than or equal to its children.<br>
 - **Safety & Integrity**: The implementation ensures structural integrity through dual-adjustment (`sift_up` and `heapify`) during node removal.
 
 ### 6. File Structure
--  **`my_heap.py`**: Core logic including Heap base class and subclasses.
+-  **`heaps_and_heapsort.py`**: Core logic including Heap base class and subclasses.
 -  **`tree_printer.py`**: A helper module for terminal-based binary tree visualization.
 -  **`requirements.txt`**: List of required third-party libraries.
 
