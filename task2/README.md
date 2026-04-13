@@ -11,7 +11,7 @@ Link to video: https://mailouhkedu-my.sharepoint.com/:v:/g/personal/s1377944_liv
 - **Installation**: Install dependencies for visualization:
   `pip install -r requirements.txt`
 - **Usage**: Run the main script to see the heap operations and visualization:
-  `python my_heap.py `
+  `python heap_and_heapsort.py `
 
 
 
